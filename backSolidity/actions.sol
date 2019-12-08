@@ -31,9 +31,7 @@ contract Acctions is userStatus {
     function makeAccount(address ethereumAddress, string memory userID, string memory userPassword) public
     {
        require(findUserByUserID(userID) > users.length, "DUPLICATE USERID, USER ANOTHER ID");
-
        uint256 position = mapArray.length + 1;
-
        city memory newUserCapitalCity = city(userID, true, 100,  string(abi.encodePacked(userID, userPassword)), position, false, 0);
        mapArray.push(newUserCapitalCity);
        userData memory newUser = userData(ethereumAddress, userID, userPassword, true, 0, now);
@@ -102,13 +100,11 @@ contract Acctions is userStatus {
 
         uint32 a_solider = mapArray[cityIndex_a].numberOfsoldiers;
         uint32 b_solider = mapArray[cityIndex_b].numberOfsoldiers;
+
         if(mapArray[cityIndex_b].fortress) b_solider *= 2;
 
         if(a_solider > b_solider)
         {
-            mapArray[cityIndex_a].numberOfsoldiers = 0;
-            mapArray[cityIndex_b].numberOfsoldiers = 0;
-
             uint32 hpReduction = a_solider - b_solider;
 
             if(mapArray[cityIndex_b].hp <= hpReduction)
@@ -116,18 +112,21 @@ contract Acctions is userStatus {
                 if(mapArray[cityIndex_b].capital) users[userIndex_b].survival = false;
 
                 mapArray[cityIndex_b].owner = userID_A;
-                mapArray[cityIndex_b].numberOfsoldiers = a_solider - b_solider - mapArray[cityIndex_b].hp;
+                mapArray[cityIndex_a].numberOfsoldiers = a_solider - b_solider - mapArray[cityIndex_b].hp;
+                mapArray[cityIndex_b].numberOfsoldiers = 0;
                 mapArray[cityIndex_b].hp = 10;
             }
             else
             {
+                mapArray[cityIndex_a].numberOfsoldiers = 0;
+                mapArray[cityIndex_b].numberOfsoldiers = 0;
                 mapArray[cityIndex_b].hp -= hpReduction;
             }
         }
         else
         {
-            mapArray[cityIndex_a].numberOfsoldiers = 0;
             mapArray[cityIndex_b].numberOfsoldiers -= a_solider;
+            mapArray[cityIndex_a].numberOfsoldiers = 0;
         }       
     }
 
