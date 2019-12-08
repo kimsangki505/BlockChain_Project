@@ -278,14 +278,6 @@ var action_Contract_abi = [
 
 var action_Contract = new web3.eth.Contract(action_Contract_abi, action_address, { from: owner_address });
 
-/*
-collector.push(web3.eth.getBalance(owner_address));
-    collector.push(crowd_Contract);
-    collector.push(crowd_Contract.methods.goalAmount().call({ from: owner_address }));
-    collector.push(token_Contract.methods.balanceOf(crowd_contractAddress).call({ from: owner_address }));
-    collector.push(token_Contract.methods.balanceOf(owner_address).call({ from: owner_address }));
-    collector.push(token_Contract.methods.symbol().call({ from: owner_address }));
-*/
 app.get('/', function (req, res) {
     res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
     res.end();
@@ -301,7 +293,7 @@ app.post('/login_post', function (req, res) {
 
     action_Contract.methods.login(Username, Password).call({ from: owner_address })
         .then(function (value) {
-            res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+            res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' +  Username });
             res.write(Username);
             res.end();
         }).catch(function (error) {
@@ -323,7 +315,7 @@ app.post('/signup_post', function (req, res) {
     var Repeat_Password = req.body.Repeat_Password
 
     if (Repeat_Password == Repeat_Password) {
-        action_Contract.methods.makeAccount(account, Username, Password).send({ from: account, gas:500000 })
+        action_Contract.methods.makeAccount(account, Username, Password).send({ from: owner_address, gas:500000 })
             .then(function (value) {
                 console.log(value);
                 res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
@@ -338,186 +330,96 @@ app.post('/signup_post', function (req, res) {
     {
 
     }
-
-
 });
 
-app.get('/main', function (req, res) {
-    console.log(req);
-    res.render('mainpage', {});
-});
-/*
-app.post('/produceSolider', function (req, res) {
+app.get('/main/:userID/', function (req, res) {
+    var userid = req.body.userid;
+
+    collector = []
+
+    collector.push(action_Contract.methods.users().call({ from: owner_address }));
+    collector.push(action_Contract.methods.mapArray().call({ from: owner_address }));
+
+    action_Contract.methods.produceSolider(userid, string memory cityName, uint32 number)
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
+        res.end();
+    });
+    users
+    mapArray
+    res.render('mainpage', {});
+});
+
+
+app.post('/produceSolider', function (req, res) {
+    var userid = req.body.userid;
+    var useraccount = req.body.useraccount;
+
+    action_Contract.methods.produceSolider(userid, string memory cityName, uint32 number).send({ from: useraccount, gas:500000 }).send({ from: owner_address, gas:500000 })
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
 });
 
 app.post('/makeFortress', function (req, res) {
+    var userid = req.body.userid;
+
+    action_Contract.methods.makeFortress(string memory userID, string memory cityName).send({ from: owner_address, gas:500000 })
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
 });
 
 app.post('/colletTax', function (req, res) {
+    var userid = req.body.userid;
+    
+    action_Contract.methods.colletTax(string memory userID).send({ from: owner_address, gas:500000 })
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
 });
 
 app.post('/attack', function (req, res) {
+    var userid = req.body.userid;
+
+    action_Contract.methods.attack(string memory userID_A, string memory cityName_A, uint32 a_solider ,string memory userID_B, string memory cityName_B).send({ from: owner_address, gas:500000 })
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
 });
 
 app.post('/heal', function (req, res) {
+    var userid = req.body.userid;
+
+    action_Contract.methods.heal(string memory userID, string memory cityName).send({ from: owner_address, gas:500000 })
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
 });
 
-
-app.get('/beneficiary', function (req, res) {
-
-    var collector = [];
-    collector.push(web3.eth.getBalance(crowd_contractAddress));
-    collector.push(web3.eth.getBalance(owner_address));
-    collector.push(crowd_Contract.methods.ended().call({ from: owner_address }));
-    collector.push(crowd_Contract.methods.goalAmount().call({ from: owner_address }));
-    collector.push(token_Contract.methods.balanceOf(crowd_contractAddress).call({ from: owner_address }));
-    collector.push(token_Contract.methods.balanceOf(owner_address).call({ from: owner_address }));
-    collector.push(token_Contract.methods.symbol().call({ from: owner_address }));
-
-    crowd_Contract.methods.checkGoalReached().send({ from: owner_address }, function (err) {
-        console.log(err);
-        Promise.all(collector).then(
-            function (values) {
-
-                token_Contract.methods.transfer(crowd_contractAddress, values[5]).send({ from: owner_address }).then(function (result) {
-                    var status;
-                    if (!values[2]) status = "Running";
-                    else status = "Finished";
-
-                    
-                });
-            }
-        );
-    });
-
-
-});
-
-
-app.post('/main_investor_receiver', function (req, res) {
-
-
-    var account_to_fund = req.body.account_to_fund;
-    var amount_of_funding = req.body.amount_of_funding;
-    var password = req.body.password;
-
-    console.log(account_to_fund);
-    console.log(amount_of_funding);
-    console.log(password);
-
-    web3.eth.personal.unlockAccount(account_to_fund, password, 600).then(
-        function (blank) {
-            console.log("TEST");
-            crowd_Contract.methods.fund().send({ from: account_to_fund, value: web3.utils.toWei(String(amount_of_funding), 'ether') },
-                function (non_used) {
-                    console.log(non_used);
-                    console.log("TEST2");
-                    var collector = [];
-                    collector.push(crowd_Contract.methods.ended().call({ from: owner_address }));
-                    collector.push(token_Contract.methods.balanceOf(crowd_contractAddress).call({ from: owner_address }));
-                    collector.push(web3.eth.getBalance(crowd_contractAddress));
-                    collector.push(crowd_Contract.methods.goalAmount().call({ from: owner_address }));
-                    collector.push(token_Contract.methods.balanceOf(account_to_fund).call({ from: owner_address }));
-
-                    Promise.all(collector).then(
-                        function (values) {
-                            var status;
-                            if (!values[0]) status = "Running";
-                            else status = "Finished";
-
-                            res.render('main_investor', {
-                                Current_Status: status,
-                                join_div_block: "block",
-                                funded_current_eth: web3.utils.fromWei(values[2], 'ether'),
-                                funded_goal: web3.utils.fromWei(values[3], 'ether'),
-                                remainig_Token: values[1],
-                                investor_input_block: "none",
-                                investor_info_block: "block",
-                                investor_account: account_to_fund,
-                                investor_eth: amount_of_funding,
-                                investor_ctk: values[4]
-                            });
-                        }
-                    );
-
-                }
-            );
-
-        });
-
-});
-
-
-app.get('/investor', function (req, res) {
-    var collector = [];
-    collector.push(crowd_Contract.methods.ended().call({ from: owner_address }));
-    collector.push(token_Contract.methods.balanceOf(crowd_contractAddress).call({ from: owner_address }));
-    collector.push(web3.eth.getBalance(crowd_contractAddress));
-    collector.push(crowd_Contract.methods.goalAmount().call({ from: owner_address }));
-
-    crowd_Contract.methods.checkGoalReached().send({ from: owner_address }, function (err) {
-        Promise.all(collector).then(
-            function (values) {
-                var status;
-                if (!values[0]) status = "Running";
-                else status = "Finished";
-
-
-                res.render('main_investor', {
-                    Current_Status: status,
-                    join_div_block: "block",
-                    funded_current_eth: web3.utils.fromWei(values[2], 'ether'),
-                    funded_goal: web3.utils.fromWei(values[3], 'ether'),
-                    remainig_Token: values[1],
-                    investor_input_block: "none",
-                    investor_info_block: "none",
-                    investor_account: 0,
-                    investor_eth: 0,
-                    investor_ctk: 0,
-                });
-            }
-        );
-    });
-
-
-});
-
-*/
 app.listen(3000, function () {
     console.log("connected 3000 port");
 });

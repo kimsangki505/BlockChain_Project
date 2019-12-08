@@ -138,4 +138,10 @@ contract Acctions is userStatus {
        if(mapArray[cityIndex].hp <= 50) mapArray[cityIndex].hp += 50;
        else mapArray[cityIndex].hp = 100;
     }
+
+    function returnUserData(string memory userID) public returns()
+    {
+        uint256 userIndex = findUserByUserID(userID);
+        return users[userIndex];
+    }
 }
