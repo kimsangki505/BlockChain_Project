@@ -4,23 +4,16 @@ import "./mapdata.sol";
 
 contract userStatus is mapInfo {
 
-    struct userAccount
+    struct userData
     {
         address ethereumAccount;
         string userID;
         string userPassword;
-    }
 
-    struct userData
-    {
-        userAccount account;
         bool survival;
-        uint32 numberOfCity;
-        city[] cities;
         uint32 money;
-        uint32 taxTime;
+        uint256 taxTime;
     }
 
-    uint32 internal numberOfuser = 0;
     userData[] internal users;
 }
