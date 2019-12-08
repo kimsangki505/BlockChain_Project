@@ -90,6 +90,7 @@ contract Acctions is userStatus {
     function attack(string memory userID_A, string memory cityName_A, uint32 a_solider ,string memory userID_B, string memory cityName_B) public 
     {
         uint256 cityIndex_a = findCityByName(userID_A, cityName_A);
+        require(mapArray[cityIndex_a].numberOfsoldiers >= a_solider, "Too Much Soldiers than you have");
         require(cityIndex_a < mapArray.length, "Wrong Owner's City Name");
 
         
