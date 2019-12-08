@@ -1,0 +1,42 @@
+doctype html
+html
+    head
+      
+    body
+        a(href="http://127.0.0.1:3000/investor") [Go to the main page of crowdfunding]
+        
+        p Current Status : #{Current_Status}
+
+        div(id="join_div" style="display: #{join_div_block}")
+            p The amount of currently funded ETH : #{funded_current_eth}(current) / #{funded_goal}(Total) ETH
+            p The amount of currently remainig Token : #{remainig_Token} ETH
+
+            button(onclick="join_crowdfunding()" style="display: block") Join Crowdfunding
+        
+
+        div(id="investor_input" style="display: #{investor_input_block}")
+            p [Join crowdfunding]
+            form(action="/main_investor_receiver" method='post')
+              
+                p Account to fund
+                    input(type='text' name='account_to_fund')
+                p The amount of funding
+                    input(type='text' name='amount_of_funding')
+                p PassPhase
+                    input(type='text' name='password')
+                p
+                    input(type='submit' value="Funding")
+
+        div(id="investor_info" style="display: #{investor_info_block}")
+            p @ User's Details @
+            p # User Account : #{investor_account}
+            p # The amount of ETH with user funds : #{investor_eth}
+            p # The amount of Token which user currently holds: #{investor_ctk}
+
+        script.
+            function join_crowdfunding(){
+                document.getElementById("join_div").style.display ='none';
+                document.getElementById("investor_input").style.display ='block';
+                document.getElementById("investor_info").style.display ='none';
+
+            }
