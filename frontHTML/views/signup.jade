@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+            
+            
+    body
+        h1 Sign Up
+        p Please fill in this form to create an account.
+        
+        form(action="/signup_post" method='post')
+
+            p Ethereum Account
+                input(type='text' name='ethereum_account')
+
+            p Username
+                input(type='text' name='Username')
+            
+            p Password
+                input(type='text' name='Password')
+            
+            p Repeat Password
+                input(type='text' name='Repeat_Password')
+            
+            p
+                input(type='submit' value="Sign Up")
+        button(onclick="location.href='http://127.0.0.1:3000/signup'") Cancel
+
+

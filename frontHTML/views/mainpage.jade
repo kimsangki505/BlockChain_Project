@@ -1,0 +1,47 @@
+doctype html
+html
+    head
+            
+            
+    body
+        h1 User Status 
+        p Survival : #{Survival}
+        p Territory 
+        p Capital City's HP : #{Capital_HP}
+
+        h1 Actions
+        ol  
+            li
+                form(action="/produceSolider" method='post')
+                    input(type='text' name='userid' style="display: none")
+                    input(type='text' name='cityName')
+                    input(type='text' name='number')
+                    input(type='submit' value="produceSolider")
+            
+            li
+                form(action="/makeFortress" method='post')
+                    input(type='text' name='userid' style="display: none")
+                    input(type='text' name='cityName')
+                    input(type='submit' value="makeFortress")
+            
+            li
+                form(action="/colletTax" method='post')
+                    input(type='text' name='userid' style="display: none")
+                    input(type='submit' value="colletTax")
+            
+            li
+                form(action="/attack" method='post')
+                    input(type='text' name='userid' style="display: none")
+                    input(type='text' name='cityName_A')
+                    input(type='text' name='a_solider')
+                    input(type='text' name='userID_B')
+                    input(type='text' name='cityName_B')
+                    input(type='submit' value="attack")
+            
+            li
+                form(action="/heal" method='post')
+                    input(type='text' name='userid' style="display: none")
+                    input(type='text' name='cityName')
+                    input(type='submit' value="heal")
+
+

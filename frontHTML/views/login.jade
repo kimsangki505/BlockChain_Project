@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+    body
+        form(action="/login_post" method='post')
+            p Username
+                input(type='text' name='Username')
+            
+            p Password
+                input(type='text' name='Password')
+            
+            p
+                input(type='submit' value="LogIn")
+        button(onclick="location.href='http://127.0.0.1:3000/signup'") Sign Up
