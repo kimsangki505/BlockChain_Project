@@ -1,10 +1,10 @@
- pragma solidity ^0.5.11;
+pragma solidity ^0.5.11;
 
 import "./userdata.sol";
 
 contract Acctions is userStatus {
 
-    function findUserByUserID(string memory userID) internal returns (uint256 result)
+    function findUserByUserID(string memory userID) internal view returns (uint256 result)
     {
         for(uint32 i = 0 ; i < users.length ; i++)
         {
@@ -15,7 +15,7 @@ contract Acctions is userStatus {
     }
 
 
-    function findCityByName(string memory userID, string memory name) internal returns (uint256 result)
+    function findCityByName(string memory userID, string memory name) internal view returns (uint256 result)
     {
 
         for(uint32 i = 0 ; i < mapArray.length ; i++)
@@ -28,7 +28,7 @@ contract Acctions is userStatus {
         return mapArray.length + 10;
     }
 
-    function makeAccount(address ethereumAddress, string memory userID, string memory userPassword) internal
+    function makeAccount(address ethereumAddress, string memory userID, string memory userPassword) public
     {
        require(findUserByUserID(userID) > users.length, "DUPLICATE USERID, USER ANOTHER ID");
 
@@ -40,7 +40,7 @@ contract Acctions is userStatus {
        users.push(newUser);
     }
 
-    function login(string memory userID, string memory userPassword) internal
+    function login(string memory userID, string memory userPassword) public view
     {
         uint256 userIndex = findUserByUserID(userID);
         require(userIndex < users.length, "No Corresponding user, please SIGN UP");
@@ -52,7 +52,7 @@ contract Acctions is userStatus {
         require(loginStatus, "Wrong ID or Password");
     }
 
-    function produceSolider(string memory userID, string memory cityName, uint32 number) internal
+    function produceSolider(string memory userID, string memory cityName, uint32 number) public
     {
        uint256 userIndex = findUserByUserID(userID);
        uint256 cityIndex = findCityByName(userID, cityName);
@@ -70,7 +70,7 @@ contract Acctions is userStatus {
        }
     }
 
-    function makeFortress(string memory userID, string memory cityName) internal
+    function makeFortress(string memory userID, string memory cityName) public
     {
        uint256 userIndex = findUserByUserID(userID);
        uint256 cityIndex = findCityByName(userID, cityName);
@@ -81,7 +81,7 @@ contract Acctions is userStatus {
        mapArray[cityIndex].fortress = true;
     }
 
-    function colletTax(string memory userID) internal
+    function colletTax(string memory userID) public
     {
        uint256 userIndex = findUserByUserID(userID);
 
@@ -89,65 +89,54 @@ contract Acctions is userStatus {
        users[userIndex].taxTime = now;
     }
 
-    function attack(string memory userID_A, string memory cityName_A, string memory userID_B, string memory cityName_B) internal 
+    function attack(string memory userID_A, string memory cityName_A, string memory userID_B, string memory cityName_B) public 
     {
-        
-        uint256 userIndex_a = findUserByUserID(userID_A);
         uint256 cityIndex_a = findCityByName(userID_A, cityName_A);
         require(cityIndex_a < mapArray.length, "Wrong Owner's City Name");
 
         
         uint256 userIndex_b = findUserByUserID(userID_B);
-        uint256 cityIndex_b = findCityByName(userIndex_b, cityName_B);
+        uint256 cityIndex_b = findCityByName(userID_B, cityName_B);
         require(cityIndex_b < mapArray.length, "Wrong enemy's City Name");
 
 
-        uint256 a_solider = users[userIndex_a].cities[cityIndex_a].numberOfsoldiers;
-        uint256 b_solider = users[userIndex_b].cities[cityIndex_b].numberOfsoldiers;
-        if(users[userIndex_b].cities[cityIndex_b].fortress) b_solider *= 2;
+        uint32 a_solider = mapArray[cityIndex_a].numberOfsoldiers;
+        uint32 b_solider = mapArray[cityIndex_b].numberOfsoldiers;
+        if(mapArray[cityIndex_b].fortress) b_solider *= 2;
 
         if(a_solider > b_solider)
         {
-            users[userIndex_a].cities[cityIndex_a].numberOfsoldiers = 0;
-            users[userIndex_b].cities[cityIndex_b].numberOfsoldiers = 0;
+            mapArray[cityIndex_a].numberOfsoldiers = 0;
+            mapArray[cityIndex_b].numberOfsoldiers = 0;
 
             uint32 hpReduction = a_solider - b_solider;
 
-            if(users[userIndex_b].cities[cityIndex_b].hp <= hpReduction)
+            if(mapArray[cityIndex_b].hp <= hpReduction)
             {
-                if(users[userIndex_b].cities[cityIndex_b].capital) users[userIndex_b].survival = false;
-                
+                if(mapArray[cityIndex_b].capital) users[userIndex_b].survival = false;
 
-                city memory element = users[userIndex_b].cities[cityIndex_b];
-                users[userIndex_b].cities[cityIndex_b] = users[userIndex_b].cities[users[userIndex_b].cities.length - 1];
-                delete users[userIndex_b].cities[users[userIndex_b].cities.length - 1];
-                users[userIndex_b].cities.length--;
-                users[userIndex_b].numberOfCity--;
-
-                element.hp = 10;
-                element.numberOfsoldiers = a_solider - b_solider - users[userIndex_b].cities[cityIndex_b].hp;
-
-                users[a_solider].numberOfCity = users[a_solider].cities.push(element) + 1;
+                mapArray[cityIndex_b].owner = userID_A;
+                mapArray[cityIndex_b].numberOfsoldiers = a_solider - b_solider - mapArray[cityIndex_b].hp;
+                mapArray[cityIndex_b].hp = 10;
             }
             else
             {
-                users[userIndex_b].cities[cityIndex_b].hp -= hpReduction;
+                mapArray[cityIndex_b].hp -= hpReduction;
             }
         }
         else
         {
-            users[userIndex_a].cities[cityIndex_a].numberOfsoldiers = 0;
-            users[userIndex_b].cities[cityIndex_b].numberOfsoldiers -= a_solider;
+            mapArray[cityIndex_a].numberOfsoldiers = 0;
+            mapArray[cityIndex_b].numberOfsoldiers -= a_solider;
         }       
     }
 
-    function heal(string memory userID, string memory cityName) internal
+    function heal(string memory userID, string memory cityName) public
     {
-       uint256 userIndex = findUserByUserID(userID);
        uint256 cityIndex = findCityByName(userID, cityName);
        require(cityIndex < mapArray.length, "Wrong City Name");
 
-       if(users[userIndex].cities[cityIndex].hp <= 50) users[userIndex].cities[cityIndex].hp += 50;
-       else users[userIndex].cities[cityIndex].hp = 100;
+       if(mapArray[cityIndex].hp <= 50) mapArray[cityIndex].hp += 50;
+       else mapArray[cityIndex].hp = 100;
     }
 }
