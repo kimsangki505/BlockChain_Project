@@ -4,17 +4,24 @@ html
             
             
     body
-        a(href="http://127.0.0.1:3000/beneficiary") [Go to the main page of crowdfunding]
+        form(action="/main_investor_receiver" method='post')
+              
+                p Account to fund
+                    input(type='text' name='account_to_fund')
+                p The amount of funding
+                    input(type='text' name='amount_of_funding')
+                p PassPhase
+                    input(type='text' name='password')
+                p
+                    input(type='submit' value="Funding")
 
-        p Current Status : #{Current_Status}
-        p The amount of currently funded ETH : #{funded_current_eth}(current) / #{funded_goal}(Total) ETH
-        p The amount of ETH which owner holds : #{owner_eth} ETH
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+  
+      <button type="submit">Login</button>
+      <button type="submit">Sign Up</button>
 
-        form(action="/main_beneficiary_receiver" method='post')
-            input(type='submit' value="Withdraw the collection from crowdfunding")
-
-        p @CrowndFunding Contract's Account : #{address_crowd_contract}
-        p #{funded_current_eth}(ETH), #{funded_current_ctk}(#{token_unit})
-        p @Owner's Account : #{address_owner}
-        p #{owner_eth}(ETH), #{owner_ctk}(#{token_unit})
 

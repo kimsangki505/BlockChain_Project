@@ -15,5 +15,5 @@ contract userStatus is mapInfo {
         uint256 taxTime;
     }
 
-    userData[] internal users;
+    userData[] public users;
 }

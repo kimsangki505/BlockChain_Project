@@ -13,5 +13,5 @@ contract mapInfo {
         uint32 numberOfsoldiers;
     }
 
-    city[] internal mapArray;
+    city[] public mapArray;
 }
