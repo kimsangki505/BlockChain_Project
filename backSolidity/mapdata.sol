@@ -1,28 +1,48 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.5.11;
 
-contract CustomToken {
-    
-    string public name;
-    string public symbol;
-    uint8 public decimals;
-    mapping (address => uint256) public balanceOf;
-    event Transfer(address _from, address _to, uint _value);
-    
-    
-    constructor(string _tokenName, string _tokenSymbol, uint8 _decimalUnits, uint256 _initialSupply) public 
+contract mapInfo {
+
+    struct position
     {
-        name = _tokenName;
-        symbol = _tokenSymbol;
-        decimals = _decimalUnits;
-        balanceOf[msg.sender] = _initialSupply;
+        uint32 x;
+        uint32 y;
     }
-    
-    function transfer(address _to, uint256 _value) public
+
+    struct city
     {
-        require(balanceOf[msg.sender] >=_value);
-        require(balanceOf[_to] + _value >= balanceOf[_to] );
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-        emit Transfer(msg.sender,_to,_value);
+        bool capital;
+        uint32 hp;
+        string name;
+        position p;
+        bool fortress;
+        uint32 numberOfsoldiers;
+    }
+
+    bool[100][] internal mapArray;
+
+    constructor() internal {
+        bool[100] memory forInitilization;
+        for(uint32 i = 0 ; i < 100 ; i ++)
+        {
+            forInitilization[i] = false;
+        }
+
+        for(uint32 i = 0 ; i < 100 ; i ++)
+        {
+            mapArray.push(forInitilization);
+        }
+    }
+
+    function selectCity() internal view returns (uint32 a, uint32 b)
+    {
+        for(uint32 i = 0 ; i < 100 ; i ++)
+        {
+            for(uint32 j = 0 ; j < 100 ; j ++)
+            {
+                if(!mapArray[i][j]) return (i, j);
+            }
+        }
+
+        return (100, 100);
     }
 }
