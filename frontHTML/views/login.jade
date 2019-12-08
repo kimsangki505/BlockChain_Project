@@ -1,27 +1,14 @@
 doctype html
 html
     head
-            
-            
     body
-        form(action="/main_investor_receiver" method='post')
-              
-                p Account to fund
-                    input(type='text' name='account_to_fund')
-                p The amount of funding
-                    input(type='text' name='amount_of_funding')
-                p PassPhase
-                    input(type='text' name='password')
-                p
-                    input(type='submit' value="Funding")
-
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-  
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-  
-      <button type="submit">Login</button>
-      <button type="submit">Sign Up</button>
-
-
+        form(action="/login_post" method='post')
+            p Username
+                input(type='text' name='Username')
+            
+            p Password
+                input(type='text' name='Password')
+            
+            p
+                input(type='submit' value="LogIn")
+        button(onclick="location.href='http://127.0.0.1:3000/signup'") Sign Up

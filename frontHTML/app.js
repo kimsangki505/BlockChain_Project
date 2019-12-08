@@ -13,148 +13,386 @@ app.set('views', './views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var owner_address = "0xc1a90FECD4269B7Dd0c8fe81328CB2A5d308F2Dc";
-var action_address = '0x2df3d20CceD1D1E20152CC596D160a19b7c6e5AA';
+var owner_address = "0xeB9cB8626AE503F9C575fEA7f60F980AE70c5e1C";
+var action_address = "0xfC837Aa311448508DD09340315A5e5Eb3EAbcF0e";
 
-var token_Contract_abi = [
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "name",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "decimals",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint8"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "balanceOf",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "symbol",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
+var action_Contract_abi = [
     {
         "constant": false,
         "inputs": [
             {
-                "name": "_to",
-                "type": "address"
+                "internalType": "string",
+                "name": "userID_A",
+                "type": "string"
             },
             {
-                "name": "_value",
-                "type": "uint256"
+                "internalType": "string",
+                "name": "cityName_A",
+                "type": "string"
+            },
+            {
+                "internalType": "uint32",
+                "name": "a_solider",
+                "type": "uint32"
+            },
+            {
+                "internalType": "string",
+                "name": "userID_B",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "cityName_B",
+                "type": "string"
             }
         ],
-        "name": "transfer",
+        "name": "attack",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
+        "constant": false,
         "inputs": [
             {
-                "name": "_tokenName",
+                "internalType": "string",
+                "name": "userID",
+                "type": "string"
+            }
+        ],
+        "name": "colletTax",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "userID",
                 "type": "string"
             },
             {
-                "name": "_tokenSymbol",
+                "internalType": "string",
+                "name": "cityName",
+                "type": "string"
+            }
+        ],
+        "name": "heal",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "ethereumAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "userID",
                 "type": "string"
             },
             {
-                "name": "_decimalUnits",
-                "type": "uint8"
+                "internalType": "string",
+                "name": "userPassword",
+                "type": "string"
+            }
+        ],
+        "name": "makeAccount",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "userID",
+                "type": "string"
             },
             {
-                "name": "_initialSupply",
+                "internalType": "string",
+                "name": "cityName",
+                "type": "string"
+            }
+        ],
+        "name": "makeFortress",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "userID",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "cityName",
+                "type": "string"
+            },
+            {
+                "internalType": "uint32",
+                "name": "number",
+                "type": "uint32"
+            }
+        ],
+        "name": "produceSolider",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "userID",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userPassword",
+                "type": "string"
+            }
+        ],
+        "name": "login",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "mapArray",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "owner",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "capital",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint32",
+                "name": "hp",
+                "type": "uint32"
+            },
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "position",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "fortress",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint32",
+                "name": "numberOfsoldiers",
+                "type": "uint32"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "users",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "ethereumAccount",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "userID",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userPassword",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "survival",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint32",
+                "name": "money",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "taxTime",
                 "type": "uint256"
             }
         ],
         "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "_from",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "_value",
-                "type": "uint256"
-            }
-        ],
-        "name": "Transfer",
-        "type": "event"
+        "stateMutability": "view",
+        "type": "function"
     }
 ];
 
-var token_Contract = new web3.eth.Contract(token_Contract_abi, token_contractAddress, { from: owner_address });
+var action_Contract = new web3.eth.Contract(action_Contract_abi, action_address, { from: owner_address });
 
+/*
+collector.push(web3.eth.getBalance(owner_address));
+    collector.push(crowd_Contract);
+    collector.push(crowd_Contract.methods.goalAmount().call({ from: owner_address }));
+    collector.push(token_Contract.methods.balanceOf(crowd_contractAddress).call({ from: owner_address }));
+    collector.push(token_Contract.methods.balanceOf(owner_address).call({ from: owner_address }));
+    collector.push(token_Contract.methods.symbol().call({ from: owner_address }));
+*/
 app.get('/', function (req, res) {
-    res.send(
-        "<a href=\"http://127.0.0.1:3000/beneficiary\"> Beneficiary Main Page </a> <br> \
-        <a href=\"http://127.0.0.1:3000/investor\"> Investor Main Page </a>");
+    res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
+    res.end();
 });
 
-app.post('/main_beneficiary_receiver', function (req, res) {
+app.get('/login', function (req, res) {
+    res.render('login', {});
+});
 
-    crowd_Contract.methods.withdraw().send({ from: owner_address }).then(function (value) {
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/beneficiary' });
+app.post('/login_post', function (req, res) {
+    var Username = req.body.Username;
+    var Password = req.body.Password;
+
+    action_Contract.methods.login(Username, Password).call({ from: owner_address })
+        .then(function (value) {
+            res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+            res.write(Username);
+            res.end();
+        }).catch(function (error) {
+            console.log(error);
+            res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
+            res.end();
+        });
+});
+
+
+app.get('/signup', function (req, res) {
+    res.render('signup', {});
+});
+
+app.post('/signup_post', function (req, res) {
+    var account = req.body.ethereum_account;
+    var Username = req.body.Username;
+    var Password = req.body.Password;
+    var Repeat_Password = req.body.Repeat_Password
+
+    if (Repeat_Password == Repeat_Password) {
+        action_Contract.methods.makeAccount(account, Username, Password).send({ from: account, gas:500000 })
+            .then(function (value) {
+                console.log(value);
+                res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
+                res.end();
+            }).catch(function (error) {
+                console.log(error);
+                res.writeHead(301, { Location: 'http://127.0.0.1:3000/signup' });
+                res.end();
+            });
+    }
+    else
+    {
+
+    }
+
+
+});
+
+app.get('/main', function (req, res) {
+    console.log(req);
+    res.render('mainpage', {});
+});
+/*
+app.post('/produceSolider', function (req, res) {
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    });
+});
+
+app.post('/makeFortress', function (req, res) {
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    });
+});
+
+app.post('/colletTax', function (req, res) {
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    });
+});
+
+app.post('/attack', function (req, res) {
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    });
+});
+
+app.post('/heal', function (req, res) {
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main' });
         res.end();
     });
 });
@@ -181,17 +419,7 @@ app.get('/beneficiary', function (req, res) {
                     if (!values[2]) status = "Running";
                     else status = "Finished";
 
-                    res.render('main_beneficiary', {
-                        Current_Status: status,
-                        funded_current_eth: web3.utils.fromWei(values[0], 'ether'),
-                        funded_current_ctk: values[4],
-                        funded_goal: web3.utils.fromWei(values[3], 'ether'),
-                        owner_eth: web3.utils.fromWei(values[1], 'ether'),
-                        owner_ctk: values[5],
-                        token_unit: values[6],
-                        address_crowd_contract: crowd_contractAddress,
-                        address_owner: owner_address
-                    });
+                    
                 });
             }
         );
@@ -289,7 +517,7 @@ app.get('/investor', function (req, res) {
 
 });
 
-
+*/
 app.listen(3000, function () {
     console.log("connected 3000 port");
 });
