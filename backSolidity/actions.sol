@@ -32,7 +32,7 @@ contract Acctions is userStatus {
     {
        require(findUserByUserID(userID) > users.length, "DUPLICATE USERID, USER ANOTHER ID");
        uint256 position = mapArray.length + 1;
-       city memory newUserCapitalCity = city(userID, true, 100,  string(abi.encodePacked(userID, userPassword)), position, false, 0);
+       city memory newUserCapitalCity = city(userID, true, 100,  string(abi.encodePacked(userID)), position, false, 0);
        mapArray.push(newUserCapitalCity);
        userData memory newUser = userData(ethereumAddress, userID, userPassword, true, 0, now);
        users.push(newUser);
@@ -87,18 +87,17 @@ contract Acctions is userStatus {
        users[userIndex].taxTime = now;
     }
 
-    function attack(string memory userID_A, string memory cityName_A, string memory userID_B, string memory cityName_B) public 
+    function attack(string memory userID_A, string memory cityName_A, uint32 a_solider ,string memory userID_B, string memory cityName_B) public 
     {
         uint256 cityIndex_a = findCityByName(userID_A, cityName_A);
         require(cityIndex_a < mapArray.length, "Wrong Owner's City Name");
 
         
         uint256 userIndex_b = findUserByUserID(userID_B);
+        require(userIndex_b < users.length, "No Corresponding user, please SIGN UP");
         uint256 cityIndex_b = findCityByName(userID_B, cityName_B);
         require(cityIndex_b < mapArray.length, "Wrong enemy's City Name");
 
-
-        uint32 a_solider = mapArray[cityIndex_a].numberOfsoldiers;
         uint32 b_solider = mapArray[cityIndex_b].numberOfsoldiers;
 
         if(mapArray[cityIndex_b].fortress) b_solider *= 2;
@@ -112,13 +111,13 @@ contract Acctions is userStatus {
                 if(mapArray[cityIndex_b].capital) users[userIndex_b].survival = false;
 
                 mapArray[cityIndex_b].owner = userID_A;
-                mapArray[cityIndex_a].numberOfsoldiers = a_solider - b_solider - mapArray[cityIndex_b].hp;
-                mapArray[cityIndex_b].numberOfsoldiers = 0;
+                mapArray[cityIndex_a].numberOfsoldiers -= a_solider;
+                mapArray[cityIndex_b].numberOfsoldiers = a_solider - b_solider - mapArray[cityIndex_b].hp;
                 mapArray[cityIndex_b].hp = 10;
             }
             else
             {
-                mapArray[cityIndex_a].numberOfsoldiers = 0;
+                mapArray[cityIndex_a].numberOfsoldiers -= a_solider;
                 mapArray[cityIndex_b].numberOfsoldiers = 0;
                 mapArray[cityIndex_b].hp -= hpReduction;
             }
@@ -126,7 +125,7 @@ contract Acctions is userStatus {
         else
         {
             mapArray[cityIndex_b].numberOfsoldiers -= a_solider;
-            mapArray[cityIndex_a].numberOfsoldiers = 0;
+            mapArray[cityIndex_a].numberOfsoldiers -= a_solider;
         }       
     }
 
