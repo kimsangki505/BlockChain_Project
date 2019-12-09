@@ -6,21 +6,21 @@ html
     body
         h1 User Status 
         p Survival : #{Survival}
-        p Capital City's HP : #{Capital_HP}
         p Money : #{user_money}
         p Territory
             ol
                 li
                     each user_city in collector_my_city
-                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital)
+                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital + " , HP : " + user_city.hp + " , Soldier : " + user_city.numberOfsoldiers)
 
         h1 Actions
         ol  
             li
-                form(action="/produceSolider/#{userid}/#{user_etheraccount}" method='post')
+                form(action="/produceSolider/#{userid}/" method='post')
                     select(name='user_city')
-                        each enemy_city in collector_enemy_city
-                            option= (enemy_city.owner + ", " + user_city.name)
+                        each user_city in collector_my_city
+                            option= (user_city.owner + ", " + user_city.name)
+                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
                     input(type='text' name='number')
                     input(type='submit' value="produceSolider")
             

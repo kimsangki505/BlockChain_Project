@@ -461,13 +461,7 @@ app.get('/main/:userID/', function (req, res) {
 
         for(var i = 0 ; i < mapData.length ; i++)
         {
-            city_map = {};
-            city_map["owner"] = mapData[i].owner;
-            city_map["name"] = mapData[i].name;
-            city_map["hp"] =  mapData[i].hp;
-            city_map["capital"] = mapData[i].capital;
-
-            if(mapData[i].owner == userid) collector_my_city.push(city_map);
+            if(mapData[i].owner == userid) collector_my_city.push(mapData[i]);
             else collector_enemy_city(city_map);
         }
 
@@ -492,18 +486,19 @@ app.get('/main/:userID/', function (req, res) {
 });
 
 
-app.post('/produceSolide/:userID/:userAccount/', function (req, res) {
+app.post('/produceSolider/:userID/', function (req, res) {
     var userid = req.params.userID;
-    var useraccount = req.params.userAccount;
-    var usercity = req.body.user_city
+    var useraccount = req.body.userAccount;
+    var usercity = req.body.user_city.split(',')
     var numOfsolider = req.body.number
 
-    console.log(usercity);
-    action_Contract.methods.produceSolider(userid, usercity.name, numOfsolider).send({ from: useraccount, gas:500000 }).send({ from: owner_address, gas:500000 })
+    action_Contract.methods.produceSolider(userid, usercity[1].trim(), numOfsolider).send({ from: useraccount, gas:500000 })
     .then(function(value){
+        console.log(value);
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid });
         res.end();
     }).catch(function(error){
+        console.log(error);
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
