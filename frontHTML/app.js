@@ -14,7 +14,7 @@ app.set('views', './views');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var owner_address = "0xeB9cB8626AE503F9C575fEA7f60F980AE70c5e1C";
-var action_address = "0xfC837Aa311448508DD09340315A5e5Eb3EAbcF0e";
+var action_address = "0xE5e012DBafAaa7F393F54e2b08c9b3Dfb70B5883";
 
 var action_Contract_abi = [
 	{
@@ -420,7 +420,7 @@ app.post('/signup_post', function (req, res) {
     var Repeat_Password = req.body.Repeat_Password
 
     if (Repeat_Password == Repeat_Password) {
-        action_Contract.methods.makeAccount(account, Username, Password).send({ from: owner_address, gas:500000 })
+        action_Contract.methods.makeAccount(account, Username, Password).send({ from: account, gas:500000 })
             .then(function (value) {
                 console.log(value);
                 res.writeHead(301, { Location: 'http://127.0.0.1:3000/login' });
@@ -438,27 +438,27 @@ app.post('/signup_post', function (req, res) {
 });
 
 app.get('/main/:userID/', function (req, res) {
-    var userid = req.body.userid;
+    var userid = req.params.userID;
 
     collector = []
+    
+    collector.push(action_Contract.methods.returnUserData(userid).call({ from: owner_address }));
+    collector.push(action_Contract.methods.returnMapData().call({ from: owner_address }));
 
-    collector.push(action_Contract.methods.users().call({ from: owner_address }));
-    collector.push(action_Contract.methods.mapArray().call({ from: owner_address }));
-
-    action_Contract.methods.produceSolider(userid, string memory cityName, uint32 number)
+    Promise.all(collector)
     .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
-        res.end();
+        console.log(value);
+        res.render('mainpage', {
+            userid: userid
+        });
     }).catch(function(error){
+        console.log(error);
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
     });
-    users
-    mapArray
-    res.render('mainpage', {});
 });
 
-
+/*
 app.post('/produceSolider', function (req, res) {
     var userid = req.body.userid;
     var useraccount = req.body.useraccount;
@@ -524,7 +524,7 @@ app.post('/heal', function (req, res) {
         res.end();
     });
 });
-
+*/
 app.listen(3000, function () {
     console.log("connected 3000 port");
 });
