@@ -14,7 +14,7 @@ app.set('views', './views');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var owner_address = "0xeB9cB8626AE503F9C575fEA7f60F980AE70c5e1C";
-var action_address = "0xE5e012DBafAaa7F393F54e2b08c9b3Dfb70B5883";
+var action_address = "0xa8A8E8ce5a628D8A2cC5c2Fe3CEE98935865485F";
 
 var action_Contract_abi = [
 	{
@@ -88,26 +88,6 @@ var action_Contract_abi = [
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "userID",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "userPassword",
-				"type": "string"
-			}
-		],
-		"name": "login",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -150,6 +130,51 @@ var action_Contract_abi = [
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint32",
+				"name": "number",
+				"type": "uint32"
+			}
+		],
+		"name": "produceSolider",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "userPassword",
+				"type": "string"
+			}
+		],
+		"name": "login",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -201,31 +226,6 @@ var action_Contract_abi = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "userID",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "cityName",
-				"type": "string"
-			},
-			{
-				"internalType": "uint32",
-				"name": "number",
-				"type": "uint32"
-			}
-		],
-		"name": "produceSolider",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
