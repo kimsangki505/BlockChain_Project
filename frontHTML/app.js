@@ -17,263 +17,368 @@ var owner_address = "0xeB9cB8626AE503F9C575fEA7f60F980AE70c5e1C";
 var action_address = "0xfC837Aa311448508DD09340315A5e5Eb3EAbcF0e";
 
 var action_Contract_abi = [
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID_A",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "cityName_A",
-                "type": "string"
-            },
-            {
-                "internalType": "uint32",
-                "name": "a_solider",
-                "type": "uint32"
-            },
-            {
-                "internalType": "string",
-                "name": "userID_B",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "cityName_B",
-                "type": "string"
-            }
-        ],
-        "name": "attack",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            }
-        ],
-        "name": "colletTax",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "cityName",
-                "type": "string"
-            }
-        ],
-        "name": "heal",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "ethereumAddress",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "userPassword",
-                "type": "string"
-            }
-        ],
-        "name": "makeAccount",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "cityName",
-                "type": "string"
-            }
-        ],
-        "name": "makeFortress",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "cityName",
-                "type": "string"
-            },
-            {
-                "internalType": "uint32",
-                "name": "number",
-                "type": "uint32"
-            }
-        ],
-        "name": "produceSolider",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "userPassword",
-                "type": "string"
-            }
-        ],
-        "name": "login",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "mapArray",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "owner",
-                "type": "string"
-            },
-            {
-                "internalType": "bool",
-                "name": "capital",
-                "type": "bool"
-            },
-            {
-                "internalType": "uint32",
-                "name": "hp",
-                "type": "uint32"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "position",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bool",
-                "name": "fortress",
-                "type": "bool"
-            },
-            {
-                "internalType": "uint32",
-                "name": "numberOfsoldiers",
-                "type": "uint32"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "users",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "ethereumAccount",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "userID",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "userPassword",
-                "type": "string"
-            },
-            {
-                "internalType": "bool",
-                "name": "survival",
-                "type": "bool"
-            },
-            {
-                "internalType": "uint32",
-                "name": "money",
-                "type": "uint32"
-            },
-            {
-                "internalType": "uint256",
-                "name": "taxTime",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID_A",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName_A",
+				"type": "string"
+			},
+			{
+				"internalType": "uint32",
+				"name": "a_solider",
+				"type": "uint32"
+			},
+			{
+				"internalType": "string",
+				"name": "userID_B",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName_B",
+				"type": "string"
+			}
+		],
+		"name": "attack",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			}
+		],
+		"name": "colletTax",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName",
+				"type": "string"
+			}
+		],
+		"name": "heal",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "userPassword",
+				"type": "string"
+			}
+		],
+		"name": "login",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "ethereumAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "userPassword",
+				"type": "string"
+			}
+		],
+		"name": "makeAccount",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName",
+				"type": "string"
+			}
+		],
+		"name": "makeFortress",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "mapArray",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "owner",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "capital",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint32",
+				"name": "hp",
+				"type": "uint32"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "position",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "fortress",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint32",
+				"name": "numberOfsoldiers",
+				"type": "uint32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cityName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint32",
+				"name": "number",
+				"type": "uint32"
+			}
+		],
+		"name": "produceSolider",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "returnMapData",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "owner",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "capital",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint32",
+						"name": "hp",
+						"type": "uint32"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "position",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "fortress",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint32",
+						"name": "numberOfsoldiers",
+						"type": "uint32"
+					}
+				],
+				"internalType": "struct mapInfo.city[]",
+				"name": "map",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			}
+		],
+		"name": "returnUserData",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "ethereumAccount",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "userID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "userPassword",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "survival",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint32",
+						"name": "money",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "taxTime",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct userStatus.userData",
+				"name": "user",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "users",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "ethereumAccount",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "userID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "userPassword",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "survival",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint32",
+				"name": "money",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "taxTime",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
 var action_Contract = new web3.eth.Contract(action_Contract_abi, action_address, { from: owner_address });

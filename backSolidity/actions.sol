@@ -1,4 +1,5 @@
 pragma solidity ^0.5.11;
+pragma experimental ABIEncoderV2;
 
 import "./userdata.sol";
 
@@ -139,9 +140,14 @@ contract Acctions is userStatus {
        else mapArray[cityIndex].hp = 100;
     }
 
-    function returnUserData(string memory userID) public returns()
+    function returnUserData(string memory userID) public view returns(userData memory user)
     {
         uint256 userIndex = findUserByUserID(userID);
         return users[userIndex];
+    }
+    
+    function returnMapData() public view returns(city[] memory map)
+    {
+        return mapArray;
     }
 }
