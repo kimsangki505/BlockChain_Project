@@ -11,7 +11,7 @@ html
             ol
                 li
                     each user_city in collector_my_city
-                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital + " , HP : " + user_city.hp + " , Soldier : " + user_city.numberOfsoldiers)
+                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital + " , HP : " + user_city.hp + " , Soldier : " + user_city.numberOfsoldiers + " Fortress : " + user_city.fortress)
 
         h1 Actions
         ol  
@@ -25,25 +25,36 @@ html
                     input(type='submit' value="produceSolider")
             
             li
-                form(action="/makeFortress#{userid}/#{user_etheraccount}" method='post')
-                    input(type='text' name='cityName')
+                form(action="/makeFortress/#{userid}/" method='post')
+                    select(name='user_city')
+                        each user_city in collector_my_city
+                            option= (user_city.owner + ", " + user_city.name)
+                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
                     input(type='submit' value="makeFortress")
             
             li
-                form(action="/colletTax#{userid}/#{user_etheraccount}" method='post')
+                form(action="/colletTax/#{userid}/" method='post')
+                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
                     input(type='submit' value="colletTax")
             
             li
-                form(action="/attack#{userid}/#{user_etheraccount}" method='post')
-                    input(type='text' name='cityName_A')
-                    input(type='text' name='a_solider')
-                    input(type='text' name='userID_B')
-                    input(type='text' name='cityName_B')
+                form(action="/attack/#{userid}/" method='post')
+                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                    select(name='user_city_a')
+                        each user_city in collector_my_city
+                            option= (user_city.owner + ", " + user_city.name)
+                    select(name='user_city_b')
+                        each enemy_city in collector_enemy_city
+                            option= (enemy_city.owner + ", " + enemy_city.name)
+                    input(type='text' name='number')
                     input(type='submit' value="attack")
             
             li
-                form(action="/heal#{userid}/#{#user_etheraccount}" method='post')
-                    input(type='text' name='cityName')
+                form(action="/heal/#{userid}" method='post')
+                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                    select(name='user_city')
+                        each user_city in collector_my_city
+                            option= (user_city.owner + ", " + user_city.name)
                     input(type='submit' value="heal")
 
 

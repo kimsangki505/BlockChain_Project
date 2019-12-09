@@ -462,7 +462,7 @@ app.get('/main/:userID/', function (req, res) {
         for(var i = 0 ; i < mapData.length ; i++)
         {
             if(mapData[i].owner == userid) collector_my_city.push(mapData[i]);
-            else collector_enemy_city(city_map);
+            else collector_enemy_city.push(mapData[i]);
         }
 
         console.log(collector_my_city);
@@ -503,10 +503,13 @@ app.post('/produceSolider/:userID/', function (req, res) {
         res.end();
     });
 });
-/*
-app.post('/makeFortress:userID/:userAccount/', function (req, res) {
+
+app.post('/makeFortress/:userID/', function (req, res) {
     var userid = req.params.userID;
-    action_Contract.methods.makeFortress(string memory userID, string memory cityName).send({ from: useraccount, gas:500000 })
+    var useraccount = req.body.userAccount;
+    var usercity = req.body.user_city.split(',')
+
+    action_Contract.methods.makeFortress(userid, usercity[1].trim()).send({ from: useraccount, gas:500000 })
     .then(function(value){
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
@@ -516,11 +519,11 @@ app.post('/makeFortress:userID/:userAccount/', function (req, res) {
     });
 });
 
-app.post('/colletTax:userID/:userAccount/', function (req, res) {
+app.post('/colletTax/:userID/', function (req, res) {
     var userid = req.params.userID;
-    var useraccount = req.params.userAccount;
+    var useraccount = req.body.userAccount;
     
-    action_Contract.methods.colletTax(string memory userID).send({ from: useraccount, gas:500000 })
+    action_Contract.methods.colletTax(userid).send({ from: useraccount, gas:500000 })
     .then(function(value){
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
@@ -530,11 +533,29 @@ app.post('/colletTax:userID/:userAccount/', function (req, res) {
     });
 });
 
-app.post('/attack:userID/', function (req, res) {
+app.post('/attack/:userID/', function (req, res) {
+    var userid_a = req.params.userID;
+    var useraccount = req.body.userAccount;
+    var numOfsolider = req.body.number
+    var usercity_a = req.body.user_city_a.split(',')
+    var user_city_b = req.body.user_city_b.split(',')
+
+    action_Contract.methods.attack(userid_a, usercity_a[1].trim(), numOfsolider, user_city_b[0].trim(), user_city_b[1].trim()).send({ from: useraccount, gas:500000 })
+    .then(function(value){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid_a});
+        res.end();
+    }).catch(function(error){
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid_a});
+        res.end();
+    });
+});
+
+app.post('/heal/:userID/', function (req, res) {
     var userid = req.params.userID;
-    var useraccount = req.params.userAccount;
+    var useraccount = req.body.userAccount;
+    var usercity = req.body.user_city.split(',')
 
-    action_Contract.methods.attack(string memory userID_A, string memory cityName_A, uint32 a_solider ,string memory userID_B, string memory cityName_B).send({ from: useraccount, gas:500000 })
+    action_Contract.methods.heal(userid, usercity[1].trim()).send({ from: useraccount, gas:500000 })
     .then(function(value){
         res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
         res.end();
@@ -544,20 +565,6 @@ app.post('/attack:userID/', function (req, res) {
     });
 });
 
-app.post('/heal:userID/', function (req, res) {
-    var userid = req.params.userID;
-    var useraccount = req.params.userAccount;
-
-    action_Contract.methods.heal(string memory userID, string memory cityName).send({ from: useraccount, gas:500000 })
-    .then(function(value){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
-        res.end();
-    }).catch(function(error){
-        res.writeHead(301, { Location: 'http://127.0.0.1:3000/main/' + userid});
-        res.end();
-    });
-});
-*/
 app.listen(3000, function () {
     console.log("connected 3000 port");
 });

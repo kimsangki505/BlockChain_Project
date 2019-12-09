@@ -133,6 +133,8 @@ contract Acctions is userStatus {
 
     function heal(string memory userID, string memory cityName) public
     {
+       uint256 userIndex = findUserByUserID(userID);
+       require(users[userIndex].money >= 100, "Not Enough Money to Heal");
        uint256 cityIndex = findCityByName(userID, cityName);
        require(cityIndex < mapArray.length, "Wrong City Name");
 
