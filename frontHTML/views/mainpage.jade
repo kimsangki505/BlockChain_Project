@@ -6,32 +6,35 @@ html
     body
         h1 User Status 
         p Survival : #{Survival}
-        p Territory 
         p Capital City's HP : #{Capital_HP}
+        p Money : #{user_money}
+        p Territory
+            ol
+                li
+                    each user_city in collector_my_city
+                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital)
 
         h1 Actions
         ol  
             li
-                form(action="/produceSolider" method='post')
-                    input(type='text' name='userid' style="display: none" value="#{userid}")
-                    input(type='text' name='cityName')
+                form(action="/produceSolider/#{userid}/#{user_etheraccount}" method='post')
+                    select(name='user_city')
+                        each enemy_city in collector_enemy_city
+                            option= (enemy_city.owner + ", " + user_city.name)
                     input(type='text' name='number')
                     input(type='submit' value="produceSolider")
             
             li
-                form(action="/makeFortress" method='post')
-                    input(type='text' name='userid' style="display: none")
+                form(action="/makeFortress#{userid}/#{user_etheraccount}" method='post')
                     input(type='text' name='cityName')
                     input(type='submit' value="makeFortress")
             
             li
-                form(action="/colletTax" method='post')
-                    input(type='text' name='userid' style="display: none")
+                form(action="/colletTax#{userid}/#{user_etheraccount}" method='post')
                     input(type='submit' value="colletTax")
             
             li
-                form(action="/attack" method='post')
-                    input(type='text' name='userid' style="display: none")
+                form(action="/attack#{userid}/#{user_etheraccount}" method='post')
                     input(type='text' name='cityName_A')
                     input(type='text' name='a_solider')
                     input(type='text' name='userID_B')
@@ -39,8 +42,7 @@ html
                     input(type='submit' value="attack")
             
             li
-                form(action="/heal" method='post')
-                    input(type='text' name='userid' style="display: none")
+                form(action="/heal#{userid}/#{#user_etheraccount}" method='post')
                     input(type='text' name='cityName')
                     input(type='submit' value="heal")
 
