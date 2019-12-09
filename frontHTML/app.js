@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var Web3 = require('web3');
 var net = require('net');
+var alert = require('alert-node');
 
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:7545'));
 
@@ -433,7 +434,8 @@ app.post('/signup_post', function (req, res) {
     }
     else
     {
-
+        res.writeHead(301, { Location: 'http://127.0.0.1:3000/signup' });
+        res.end();
     }
 });
 
