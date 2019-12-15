@@ -1,63 +1,118 @@
 doctype html
 html
     head
+        style.
+            body{
+                background-color: gray;
+            }
+            .userStatus{
+                border: 4px dashed #F6B34B ;;
+                background-color: #FFE9C6 ;
+
+
+            }
+            .territoty{
+                background-color: green;
+            }
+            .territoty
+                .nation{
+                    border: thick dotted #AFDF31;
+                }
+
+            .enemy{
+                background-color: #DF5031  ;
+            }
             
-            
+            .enemy
+                .nation{
+                    border: thick dotted #E8A575;
+                }
+
+            .icon{
+                display: inline-block;
+                margin-left:10px;
+                margin-top:10px;
+                vertical-align: middle;
+
+            }
+            .info{
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .action_btn{
+                display: inline-block;
+                 border: thick solid #D268E3   ;
+            }
+
+
     body
         h1 User Status 
-        p Survival : #{Survival}
-        p Money : #{user_money}
-        p Territory
-            ol
-                li
-                    each user_city in collector_my_city
-                        option= (user_city.owner + ", " + user_city.name + " , " + " Captial : " + user_city.capital + " , HP : " + user_city.hp + " , Soldier : " + user_city.numberOfsoldiers + " Fortress : " + user_city.fortress)
-
-        h1 Actions
-        ol  
-            li
-                form(action="/produceSolider/#{userid}/" method='post')
-                    select(name='user_city')
-                        each user_city in collector_my_city
-                            option= (user_city.owner + ", " + user_city.name)
-                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
-                    input(type='text' name='number')
-                    input(type='submit' value="produceSolider")
-            
-            li
-                form(action="/makeFortress/#{userid}/" method='post')
-                    select(name='user_city')
-                        each user_city in collector_my_city
-                            option= (user_city.owner + ", " + user_city.name)
-                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
-                    input(type='submit' value="makeFortress")
-            
-            li
+        .userStatus
+            p(style="display: inline-block;padding-right:15px;padding-left:15px") Survival : #{Survival}
+            img(src='../money.png' style="display: inline-block;",width="30px" height=auto alt='My Image')
+            p(style="display: inline-block;text-align: center;padding-right:15px;")  #{user_money}
+            .action_btn
                 form(action="/colletTax/#{userid}/" method='post')
-                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
-                    input(type='submit' value="colletTax")
-            
-            li
-                form(action="/attack/#{userid}/" method='post')
-                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
-                    select(name='user_city_a')
-                        each user_city in collector_my_city
-                            option= (user_city.owner + ", " + user_city.name)
-                    select(name='user_city_b')
-                        each enemy_city in collector_enemy_city
-                            option= (enemy_city.owner + ", " + enemy_city.name)
-                    input(type='text' name='number')
-                    input(type='submit' value="attack")
-            
-            li
-                form(action="/heal/#{userid}" method='post')
-                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
-                    select(name='user_city')
-                        each user_city in collector_my_city
-                            option= (user_city.owner + ", " + user_city.name)
-                    input(type='submit' value="heal")
+                        input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                        input(type='image' src="../tax.png" width="50px" height=auto  border = 0  alt='submit'  value="colletTax")
 
 
-    button(onclick="location.href='http://127.0.0.1:3000/login'") Log Out
+        h1 Territory
+        .territoty
+            each user_city,index in collector_my_city
+                .nation
+                    span(style="margin-left : 10px;font-size: 32px;")= (user_city.name)
+                    .icon
+                        img(src='../'+my_icon[index]+'.png',width="100px" height=auto alt='My Image')
+                    .info
+                        p= (" Captial : " + user_city.capital + " , HP : " + user_city.hp + " , Soldier : " + user_city.numberOfsoldiers + " Fortress : " + user_city.fortress)
+
+                        .action
+                            .action_btn
+                                form(action="/makeFortress/#{userid}/" method='post')
+                                    input(type="hidden" name='user_city' value=user_city.name)
+                                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                                    input(type='image' src="../fortification.png" width="50px" height=auto  border = 0  alt='submit' class="fort_btn" value="makeFortress")
+                            .action_btn
+                                form(action="/heal/#{userid}" method='post')
+                                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                                    input(type="hidden" name='user_city' value=user_city.name)
+                                    input(type='image' src="../like.png" width="50px" height=auto  border = 0  alt='submit' class="fort_btn" value="heal")
+                            .action_btn
+                                form(action="/produceSolider/#{userid}/" method='post')
+                                    input(type="hidden" name='user_city' value=user_city.name)
+                                    input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                                    input(type='image' src="../knight.png" width="50px" height=auto  border = 0  alt='submit' class="fort_btn" value="makeFortress")
+                                    select(name='number' style=" vertical-align: middle;")
+                                        -soliders = ['5','10','50','100']
+                                        each numb in soliders
+                                            option= (numb)
+
+
+        h1 Enemy
+        .enemy
+            each enemy_city,index in collector_enemy_city
+                .nation
+                    span(style="margin-left : 10px;font-size: 32px;")= (enemy_city.owner+"\'"+" "+enemy_city.name )
+                    .icon
+                        img(src='../'+enemy_icon[index]+'.png',width="75px" height=auto alt='My Image')
+                    .info
+                        form(action="/attack/#{userid}/" method='post')
+                            input(type="hidden" name="userAccount" value="#{user_etheraccount}")
+                            input(type="hidden" name="user_city_b" value=collector_enemy_city[index])
+                            .action_btn
+                                select(name='user_city_a')
+                                    each user_city in collector_my_city
+                                        option= (user_city.name)
+                                input(type='image' src="../swords.png" width="50px" height=auto  border = 0  alt='submit' class="fort_btn" value="attack")
+                                select(name='number' style=" vertical-align: middle;")
+                                    -soliders = ['5','10','50','100']
+                                    each numb in soliders
+                                        option= (numb)
+
+            
+
+
+    button(onclick="location.href='http://127.0.0.1:3000/login'" style="margin-top:50px;") Log Out
 
 

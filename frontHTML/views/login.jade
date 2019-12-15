@@ -1,14 +1,49 @@
 doctype html
 html
     head
+        style.
+            body{
+            background-color: gray;
+            }
+            .core{
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            width: 300px;
+            height: 100px;
+            margin: -50px 0 0 -50px;
+            }
+            .title{
+                position: absolute;
+                
+                width: 500px;
+                height: 100px;
+            }
+            .info{
+                position: absolute;
+                top: 250%;
+                left: 25%;
+                width: 100px;
+                height: 100px;
+            }    
     body
-        form(action="/login_post" method='post')
-            p Username
-                input(type='text' name='Username')
+        .core
+            .title
+                span(style="font-size: 32px; display: inline-block;") Light
+                img(src='ether.png' style=" display: inline-block;" alt='My Image')
+                span(style="font-size: 32px;display: inline-block;") Civilization
             
-            p Password
-                input(type='text' name='Password')
-            
-            p
-                input(type='submit' value="LogIn")
-        button(onclick="location.href='http://127.0.0.1:3000/signup'") Sign Up
+            .info         
+                form(action='/login_post', method='post')
+                    p
+                        | Username
+                        input(type='text', name='Username')
+                                 
+                    p
+                        | Password
+                        input(type='text', name='Password')
+                                 
+                    p
+                        input(type='submit', value='LogIn')
+                         
+                button(onclick="location.href='http://127.0.0.1:3000/signup'") Sign Up

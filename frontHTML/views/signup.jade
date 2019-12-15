@@ -1,28 +1,62 @@
 doctype html
 html
     head
-            
-            
+        style.
+            body{
+                position:absolute;
+                top: 10%;
+                left: 50%;
+                width: 300px;
+                height: 100px;
+                margin: -50px 0 0 -50px;
+                background-color: gray;
+            }
+            .core{
+                margin-top:150px;
+                margin-left: -500px;
+            }
+            .info{
+                float: left;
+                width: 200px;
+                height: 500px;
+                overflow: hidden;
+            }
+            .mainImage{
+                float: left;
+                top: 10%;
+                margin-right:20px;
+                width: 575px;
+                height: 400px;
+                overflow: hidden;
+            }
+         
     body
-        h1 Sign Up
-        p Please fill in this form to create an account.
         
-        form(action="/signup_post" method='post')
+        h1(style='margin-top:100px;') Sign Up
+            
+                 
+        .core
+            .mainImage
+                img(src='battle.png', alt='My Image')
+                         
+                         
+            .info
+                p Please fill in this form to create an account.
+                    form(action="/signup_post" method='post')
+                    p Ethereum Account
+                        input(type='text' name='ethereum_account')
 
-            p Ethereum Account
-                input(type='text' name='ethereum_account')
-
-            p Username
-                input(type='text' name='Username')
-            
-            p Password
-                input(type='text' name='Password')
-            
-            p Repeat Password
-                input(type='text' name='Repeat_Password')
-            
-            p
-                input(type='submit' value="Sign Up")
-        button(onclick="location.href='http://127.0.0.1:3000/login'") Cancel
+                    p Username
+                        input(type='text' name='Username')
+                    
+                    p Password
+                        input(type='text' name='Password')
+                    
+                    p Repeat Password
+                        input(type='text' name='Repeat_Password')
+                    
+                    p
+                        input(type='submit' value="Sign Up")                                
+                button(onclick="location.href='http://127.0.0.1:3000/login'") Cancel
 
 
