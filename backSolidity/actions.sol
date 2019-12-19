@@ -133,6 +133,7 @@ contract Acctions is userStatus {
             if(mapArray[cityIndex_b].numberOfsoldiers < a_solider)
             {
                 mapArray[cityIndex_b].numberOfsoldiers = 0;
+                mapArray[cityIndex_b].hp -= b_solider - a_solider;
             }
             else
             {
