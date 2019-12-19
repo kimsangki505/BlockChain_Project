@@ -102,7 +102,11 @@ contract Acctions is userStatus {
 
         uint32 b_solider = mapArray[cityIndex_b].numberOfsoldiers;
 
-        if(mapArray[cityIndex_b].fortress) b_solider *= 2;
+        if(mapArray[cityIndex_b].fortress) 
+        {
+            b_solider *= 2;
+            mapArray[cityIndex_b].fortress = false;
+        }
 
         if(a_solider > b_solider)
         {
@@ -126,7 +130,14 @@ contract Acctions is userStatus {
         }
         else
         {
-            mapArray[cityIndex_b].numberOfsoldiers -= a_solider;
+            if(mapArray[cityIndex_b].numberOfsoldiers < a_solider)
+            {
+                mapArray[cityIndex_b].numberOfsoldiers = 0;
+            }
+            else
+            {
+                mapArray[cityIndex_b].numberOfsoldiers -= a_solider;
+            }
             mapArray[cityIndex_a].numberOfsoldiers -= a_solider;
         }       
     }
